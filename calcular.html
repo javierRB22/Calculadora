@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Geométrica</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #campos {
+            margin-bottom: 15px;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Calculadora Geométrica</h2>
+
+<label for="figura">Selecciona una Figura:</label>
+<select id="figura" onchange="mostrarCampos()">
+    <option value="circulo">Círculo</option>
+    <option value="cuadrado">Cuadrado</option>
+    <option value="rectangulo">Rectángulo</option>
+    <option value="cubo">Cubo</option>
+    <option value="esfera">Esfera</option>
+</select>
+
+<div id="campos"></div>
+
+<button onclick="calcular()">Calcular</button>
+
+<div id="resultado"></div>
+
+<script>
+function mostrarCampos() {
+    var figuraSeleccionada = document.getElementById("figura").value;
+    var camposHTML = "";
+
+    switch(figuraSeleccionada) {
+        case "circulo":
+            camposHTML = '<label for="radio">Radio del Círculo:</label><input type="number" id="radio">';
+            break;
+        case "cuadrado":
+            camposHTML = '<label for="lado">Lado del Cuadrado:</label><input type="number" id="lado">';
+            break;
+        case "rectangulo":
+            camposHTML = '<label for="base">Base del Rectángulo:</label><input type="number" id="base"><label for="altura">Altura del Rectángulo:</label><input type="number" id="altura">';
+            break;
+        case "cubo":
+            camposHTML = '<label for="ladoCubo">Lado del Cubo:</label><input type="number" id="ladoCubo">';
+            break;
+        case "esfera":
+            camposHTML = '<label for="radioEsfera">Radio de la Esfera:</label><input type="number" id="radioEsfera">';
+            break;
+    }
+
+    document.getElementById("campos").innerHTML = camposHTML;
+}
+
+function calcular() {
+    var figuraSeleccionada = document.getElementById("figura").value;
+
+    var resultado = "";
+
+    switch(figuraSeleccionada) {
+        case "circulo":
+            var radio = document.getElementById("radio").value;
+            var area = Math.PI * Math.pow(radio, 2);
+            var perimetro = 2 * Math.PI * radio;
+            resultado = "<strong>Área:</strong> " + area.toFixed(2) + "<br><strong>Perímetro:</strong> " + perimetro.toFixed(2);
+            break;
+        case "cuadrado":
+            var lado = document.getElementById("lado").value;
+            var area = Math.pow(lado, 2);
+            var perimetro = 4 * lado;
+            resultado = "<strong>Área:</strong> " + area.toFixed(2) + "<br><strong>Perímetro:</strong> " + perimetro.toFixed(2);
+            break;
+        case "rectangulo":
+            var base = document.getElementById("base").value;
+            var altura = document.getElementById("altura").value;
+            var area = base * altura;
+            var perimetro = 2 * (parseFloat(base) + parseFloat(altura));
+            resultado = "<strong>Área:</strong> " + area.toFixed(2) + "<br><strong>Perímetro:</strong> " + perimetro.toFixed(2);
+            break;
+        case "cubo":
+            var ladoCubo = document.getElementById("ladoCubo").value;
+            var volumenCubo = Math.pow(ladoCubo, 3);
+            var areaSuperficieCubo = 6 * Math.pow(ladoCubo, 2);
+            resultado = "<strong>Volumen:</strong> " + volumenCubo.toFixed(2) + "<br><strong>Área de Superficie:</strong> " + areaSuperficieCubo.toFixed(2);
+            break;
+        case "esfera":
+            var radioEsfera = document.getElementById("radioEsfera").value;
+            var volumenEsfera = (4/3) * Math.PI * Math.pow(radioEsfera, 3);
+            var areaSuperficieEsfera = 4 * Math.PI * Math.pow(radioEsfera, 2);
+            resultado = "<strong>Volumen:</strong> " + volumenEsfera.toFixed(2) + "<br><strong>Área de Superficie:</strong> " + areaSuperficieEsfera.toFixed(2);
+            break;
+    }
+
+    document.getElementById("resultado").innerHTML = resultado;
+}
+</script>
+
+</body>
+</html>
